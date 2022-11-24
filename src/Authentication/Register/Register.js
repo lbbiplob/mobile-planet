@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const Register = () => {
-  const { createUser, updateUserDetails, user } = useContext(AuthContext);
-  console.log(user);
+  const { createUser, updateUserDetails } = useContext(AuthContext);
+  // user registion function
   const handelRegister = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -15,10 +15,10 @@ const Register = () => {
     console.log(userType, email, password, name);
     createUser(email, password)
       .then((result) => {
-        const user = result.user;
         const updateName = {
           displayName: name,
         };
+        // user details update on firebase
         updateUserDetails(updateName)
           .then((result) => {
             saveUser(name, email, userType);
@@ -28,6 +28,8 @@ const Register = () => {
       })
       .catch((error) => console.error(error));
   };
+
+  // send userinfo to database
   const saveUser = (name, email, userType) => {
     const user = {
       name,
@@ -43,7 +45,20 @@ const Register = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        // getToken(email);
         console.log(data);
+      });
+  };
+
+  // get token from backend
+
+  const getToken = (email) => {
+    fetch(`http://localhost:5000/jwt?email=${email}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.accessToken) {
+          localStorage.setItem("accessToken", data.accessToken);
+        }
       });
   };
   return (

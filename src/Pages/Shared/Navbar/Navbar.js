@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../AuthProvider/AuthProvider";
+import UseSeller from "../../../Hooks/UseSeller";
 import logo from "../../../images/Logo.png";
 
 const Navbar = () => {
+  const { user, logOut } = useContext(AuthContext);
+  const [isSeller] = UseSeller(user?.email);
+  const handelLogout = () => {
+    logOut()
+      .then((result) => {})
+      .catch((error) => console.error(error));
+  };
   return (
     <div className="navbar bg-neutral text-white lg:px-10 ">
       <div className="navbar-start">
@@ -55,9 +64,25 @@ const Navbar = () => {
                 </li>
               </ul>
             </li>
-            <li>
-              <Link to={"login"}>Login</Link>
-            </li>
+            {user?.email ? (
+              <>
+                <li>
+                  <Link onClick={handelLogout}>Logout</Link>
+                </li>
+              </>
+            ) : (
+              <li>
+                <Link to={"login"}>Login</Link>
+              </li>
+            )}
+
+            {user && isSeller ? (
+              <li>
+                <Link to={"addproduct"}>Add Product</Link>
+              </li>
+            ) : (
+              ""
+            )}
           </ul>
         </div>
         <img className="w-14" src={logo} alt="" />
@@ -93,9 +118,24 @@ const Navbar = () => {
               </li>
             </ul>
           </li>
-          <li>
-            <Link to={"login"}>Login</Link>
-          </li>
+          {user?.email ? (
+            <>
+              <li>
+                <Link onClick={handelLogout}>Logout</Link>
+              </li>
+            </>
+          ) : (
+            <li>
+              <Link to={"login"}>Login</Link>
+            </li>
+          )}
+          {user && isSeller ? (
+            <li>
+              <Link to={"addproduct"}>Add Product</Link>
+            </li>
+          ) : (
+            ""
+          )}
         </ul>
       </div>
     </div>
