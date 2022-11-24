@@ -3,6 +3,8 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signInWithPopup,
   updateProfile,
 } from "firebase/auth";
 import app from "../firebase/firebase.init";
@@ -15,7 +17,12 @@ const AuthProvider = ({ children }) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
-
+  const emailPasswordLogin = (email, password) => {
+    return signInWithEmailAndPassword(auth, email, password);
+  };
+  const googleLogin = (provider) => {
+    return signInWithPopup(auth, provider);
+  };
   const updateUserDetails = (details) => {
     return updateProfile(auth.currentUser, details);
   };
@@ -27,7 +34,14 @@ const AuthProvider = ({ children }) => {
     });
     return () => unsubscribe();
   }, []);
-  const authInfo = { createUser, user, loading, updateUserDetails };
+  const authInfo = {
+    createUser,
+    user,
+    loading,
+    updateUserDetails,
+    emailPasswordLogin,
+    googleLogin,
+  };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );

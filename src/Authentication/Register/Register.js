@@ -20,7 +20,9 @@ const Register = () => {
           displayName: name,
         };
         updateUserDetails(updateName)
-          .then((result) => {})
+          .then((result) => {
+            form.reset();
+          })
           .catch((error) => console.error(error));
       })
       .catch((error) => console.error(error));
