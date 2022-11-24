@@ -21,11 +21,30 @@ const Register = () => {
         };
         updateUserDetails(updateName)
           .then((result) => {
+            saveUser(name, email, userType);
             form.reset();
           })
           .catch((error) => console.error(error));
       })
       .catch((error) => console.error(error));
+  };
+  const saveUser = (name, email, userType) => {
+    const user = {
+      name,
+      email,
+      userType,
+    };
+    fetch("http://localhost:5000/users", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
   };
   return (
     <div className="hero min-h-screen bg-base-200">
@@ -93,7 +112,7 @@ const Register = () => {
                 <span>
                   Already have account{" "}
                   <Link to={"/login"} className="link link-info">
-                    Login
+                    Please Login
                   </Link>{" "}
                 </span>
               </label>
