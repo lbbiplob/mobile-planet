@@ -4,6 +4,9 @@ import Register from "../Authentication/Register/Register";
 import Main from "../Layouts/Main/Main";
 import Addproduct from "../Pages/AddProduct/Addproduct";
 import Home from "../Pages/Home/Home/Home";
+import MyOrders from "../Pages/MyOrders/MyOrders/MyOrders";
+import MyProducts from "../Pages/MyProducts/MyProducts/MyProducts";
+import PrivetRoute from "./PrivetRoutes";
 
 const router = createBrowserRouter([
   {
@@ -24,7 +27,27 @@ const router = createBrowserRouter([
       },
       {
         path: "/addproduct",
-        element: <Addproduct></Addproduct>,
+        element: (
+          <PrivetRoute>
+            <Addproduct></Addproduct>
+          </PrivetRoute>
+        ),
+      },
+      {
+        path: "/myproducts",
+        element: (
+          <PrivetRoute>
+            <MyProducts></MyProducts>
+          </PrivetRoute>
+        ),
+      },
+      {
+        path: "/myorders",
+        element: (
+          <PrivetRoute>
+            <MyOrders></MyOrders>
+          </PrivetRoute>
+        ),
       },
     ],
   },
