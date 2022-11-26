@@ -1,10 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
+import moment from "moment";
 
 const Addproduct = () => {
   const { user } = useContext(AuthContext);
+  console.log(user.email);
   const imageHostKey = process.env.REACT_APP_imabb_key;
+
+  // const useTime = moment(postTime, "YYYYMMDD").fromNow();
+
   const { data: categories = [] } = useQuery({
     queryKey: ["categories"],
     queryFn: () =>
@@ -25,6 +30,9 @@ const Addproduct = () => {
     const model = form.model.value;
     const storage = form.storage.value;
     const details = form.details.value;
+    const postTime = moment().format("MMMM-Do-YYYY, h:mm ");
+    const useTime = moment(buyDate, "YYYYMMDD").fromNow();
+
     // let categoryId;
     const photo = form.image.files[0];
     const formData = new FormData();
@@ -43,6 +51,9 @@ const Addproduct = () => {
         const img = imgData.data.url;
         const product = {
           displayName: user.displayName,
+          email: user.email,
+          postTime,
+          useTime,
           productTitle,
           area,
           img,
