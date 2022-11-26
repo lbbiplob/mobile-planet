@@ -3,6 +3,7 @@ import Login from "../Authentication/Login/Login";
 import Register from "../Authentication/Register/Register";
 import Main from "../Layouts/Main/Main";
 import Addproduct from "../Pages/AddProduct/Addproduct";
+import AllProducts from "../Pages/AllProducts/AllProducts/AllProducts";
 import Home from "../Pages/Home/Home/Home";
 import MyOrders from "../Pages/MyOrders/MyOrders/MyOrders";
 import MyProducts from "../Pages/MyProducts/MyProducts/MyProducts";
@@ -25,6 +26,11 @@ const router = createBrowserRouter([
         path: "/register",
         element: <Register></Register>,
       },
+      {
+        path: "/allproducts",
+        element: <AllProducts></AllProducts>,
+      },
+
       {
         path: "/addproduct",
         element: (

@@ -1,7 +1,74 @@
-import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import React, { useContext } from "react";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const Addproduct = () => {
-  const handelAddProduct = (e) => {};
+  const { user } = useContext(AuthContext);
+  const imageHostKey = process.env.REACT_APP_imabb_key;
+  const { data: categories = [] } = useQuery({
+    queryKey: ["categories"],
+    queryFn: () =>
+      fetch("http://localhost:5000/categories").then((res) => res.json()),
+  });
+
+  const handelAddProduct = (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+    const productTitle = form.title.value;
+    const area = form.area.value;
+    const phoneCondition = form.phonecondition.value;
+    const buyDate = form.date.value;
+    const band = form.band.value;
+    const sellingPrice = form.sellprice.value;
+    const buyingPrice = form.buyprice.value;
+    const model = form.model.value;
+    const storage = form.storage.value;
+    const details = form.details.value;
+    // let categoryId;
+    const photo = form.image.files[0];
+    const formData = new FormData();
+    formData.append("image", photo);
+    const category = categories.find((cat) => cat.cetegoryName === band);
+    const categoryId = category.categoryId;
+
+    const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`;
+    fetch(url, {
+      method: "POST",
+
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((imgData) => {
+        const img = imgData.data.url;
+        const product = {
+          displayName: user.displayName,
+          productTitle,
+          area,
+          img,
+          buyDate,
+          phoneCondition,
+          band,
+          details,
+          categoryId,
+          sellingPrice,
+          buyingPrice,
+          storage,
+          model,
+        };
+        fetch("http://localhost:5000/products", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(product),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+          });
+      });
+  };
   return (
     <div className="bg-base-200">
       <div className=" bg-base-100  ">
@@ -22,6 +89,32 @@ const Addproduct = () => {
                   className="input input-bordered"
                   required
                 />
+              </div>
+              <div className="lg:flex gap-3">
+                <div className="form-control w-full">
+                  <label className="label">
+                    <span className="label-text font-bold">Buying price</span>
+                  </label>
+                  <input
+                    name="buyprice"
+                    type="text"
+                    placeholder="buying price"
+                    className="input input-bordered"
+                    required
+                  />
+                </div>
+                <div className="form-control w-full">
+                  <label className="label">
+                    <span className="label-text font-bold">Selling price</span>
+                  </label>
+                  <input
+                    name="sellprice"
+                    type="text"
+                    placeholder="selling price"
+                    className="input input-bordered"
+                    required
+                  />
+                </div>
               </div>
               <div className="lg:flex gap-3">
                 <div className="form-control w-full">
@@ -48,7 +141,7 @@ const Addproduct = () => {
                     </span>
                   </label>
                   <select
-                    name="usertype"
+                    name="phonecondition"
                     className="select select-bordered w-full "
                     required
                   >
@@ -64,6 +157,7 @@ const Addproduct = () => {
                     <span className="label-text ">Give buying date</span>
                   </label>
                   <input
+                    name="date"
                     type="date"
                     className="input input-bordered"
                     required
@@ -74,7 +168,7 @@ const Addproduct = () => {
                     <span className="label-text ">Phone Band</span>
                   </label>
                   <select
-                    name="usertype"
+                    name="band"
                     className="select select-bordered w-full "
                     required
                   >
@@ -82,6 +176,32 @@ const Addproduct = () => {
                     <option value="Oppo">Oppo</option>
                     <option value="Xiaomi">Xiaomi</option>
                   </select>
+                </div>
+              </div>
+              <div className="lg:flex gap-3">
+                <div className="form-control w-full">
+                  <label className="label">
+                    <span className="label-text font-bold">Storage</span>
+                  </label>
+                  <input
+                    name="storage"
+                    type="text"
+                    placeholder="storage"
+                    className="input input-bordered"
+                    required
+                  />
+                </div>
+                <div className="form-control w-full">
+                  <label className="label">
+                    <span className="label-text font-bold">model</span>
+                  </label>
+                  <input
+                    name="model"
+                    type="text"
+                    placeholder="model"
+                    className="input input-bordered"
+                    required
+                  />
                 </div>
               </div>
 
@@ -92,6 +212,7 @@ const Addproduct = () => {
                   </span>
                 </label>
                 <textarea
+                  name="details"
                   className="textarea textarea-bordered"
                   placeholder="Write Details "
                 ></textarea>
@@ -104,13 +225,14 @@ const Addproduct = () => {
                   </span>
                 </label>
                 <input
+                  name="image"
                   type="file"
                   className="file-input file-input-bordered w-full "
                 />
               </div>
               <div className="form-control mt-6">
                 <button type="submit" className="btn btn-primary">
-                  Register
+                  Add Product
                 </button>
               </div>
             </form>

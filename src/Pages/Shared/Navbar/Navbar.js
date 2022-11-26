@@ -1,3 +1,4 @@
+import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../AuthProvider/AuthProvider";
@@ -7,6 +8,13 @@ import logo from "../../../images/Logo.png";
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
   const [isSeller] = UseSeller(user?.email);
+
+  const { data: categories = [] } = useQuery({
+    queryKey: ["categories"],
+    queryFn: () =>
+      fetch("http://localhost:5000/categories").then((res) => res.json()),
+  });
+
   const handelLogout = () => {
     logOut()
       .then((result) => {})
@@ -37,7 +45,7 @@ const Navbar = () => {
             className="menu menu-compact dropdown-content mt-3 p-2 shadow  rounded-box w-52 bg-neutral"
           >
             <li>
-              <Link>All Items</Link>
+              <Link to={"/allproducts"}>All Items</Link>
             </li>
             <li tabIndex={0}>
               <Link className="justify-between ">
@@ -53,15 +61,11 @@ const Navbar = () => {
                 </svg>
               </Link>
               <ul className="p-2 bg-neutral">
-                <li>
-                  <Link>Vivo</Link>
-                </li>
-                <li>
-                  <Link>Oppo</Link>
-                </li>
-                <li>
-                  <Link>Xiaomi</Link>
-                </li>
+                {categories.map((category) => (
+                  <li key={category.categoryId}>
+                    <Link>{category.cetegoryName}</Link>
+                  </li>
+                ))}
               </ul>
             </li>
             {user && isSeller ? (
@@ -97,7 +101,7 @@ const Navbar = () => {
       <div className="navbar-end hidden lg:flex">
         <ul className="menu menu-horizontal p-0 ">
           <li>
-            <Link>All Items</Link>
+            <Link to={"/allproducts"}>All Items</Link>
           </li>
           <li tabIndex={0}>
             <Link>
@@ -113,15 +117,11 @@ const Navbar = () => {
               </svg>
             </Link>
             <ul className="p-2 px-4 bg-neutral rounded-box">
-              <li>
-                <Link>Vivo</Link>
-              </li>
-              <li>
-                <Link>Oppo</Link>
-              </li>
-              <li>
-                <Link>Xiaomi</Link>
-              </li>
+              {categories.map((category) => (
+                <li key={category._id}>
+                  <Link>{category.cetegoryName}</Link>
+                </li>
+              ))}
             </ul>
           </li>
           {user && isSeller ? (
