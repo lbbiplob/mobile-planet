@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../../AuthProvider/AuthProvider";
 import UseSeller from "../../../Hooks/UseSeller";
 import logo from "../../../images/Logo.png";
+import Loading from "../../Loading/Loading";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -45,6 +46,9 @@ const Navbar = () => {
             className="menu menu-compact dropdown-content mt-3 p-2 shadow  rounded-box w-52 bg-neutral"
           >
             <li>
+              <Link to={"/"}>Home</Link>
+            </li>
+            <li>
               <Link to={"/allproducts"}>All Items</Link>
             </li>
             <li tabIndex={0}>
@@ -78,9 +82,7 @@ const Navbar = () => {
                 </li>
               </>
             ) : (
-              <li>
-                <Link to={"myorders"}>My Orders</Link>
-              </li>
+              <Loading></Loading>
             )}
             {user?.email ? (
               <>
@@ -100,6 +102,9 @@ const Navbar = () => {
       </div>
       <div className="navbar-end hidden lg:flex">
         <ul className="menu menu-horizontal p-0 ">
+          <li>
+            <Link to={"/"}>Home</Link>
+          </li>
           <li>
             <Link to={"/allproducts"}>All Items</Link>
           </li>

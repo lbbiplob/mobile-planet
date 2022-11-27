@@ -1,9 +1,32 @@
-import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import React, { useContext } from "react";
+import { AuthContext } from "../../../AuthProvider/AuthProvider";
+import Myproduct from "../Myproduct/Myproduct";
 
 const MyProducts = () => {
+  const { user } = useContext(AuthContext);
+
+  const { data: MyProducts = [], refetch } = useQuery({
+    queryKey: ["products", user?.email],
+    queryFn: () =>
+      fetch(`http://localhost:5000/products?email=${user.email}`).then((res) =>
+        res.json()
+      ),
+  });
+  console.log(MyProducts);
   return (
     <div>
-      <h2>this is my products</h2>
+      <h2 className="text-xl font-bold text-center my-5 mx-auto">
+        Hi {user?.displayName} !!! Your All Products
+      </h2>
+      {MyProducts.map((myproduct, index) => (
+        <Myproduct
+          key={myproduct._id}
+          myproduct={myproduct}
+          index={index}
+          refetch={refetch}
+        ></Myproduct>
+      ))}
     </div>
   );
 };

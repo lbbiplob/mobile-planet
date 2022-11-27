@@ -5,7 +5,7 @@ import moment from "moment";
 
 const Addproduct = () => {
   const { user } = useContext(AuthContext);
-  console.log(user.email);
+
   const imageHostKey = process.env.REACT_APP_imabb_key;
 
   // const useTime = moment(postTime, "YYYYMMDD").fromNow();

@@ -13,7 +13,6 @@ const Product = ({ product }) => {
     img,
     postTime,
     useTime,
-    model,
     phoneCondition,
     productTitle,
     sellingPrice,
