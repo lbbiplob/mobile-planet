@@ -3,7 +3,7 @@ import Login from "../Authentication/Login/Login";
 import Register from "../Authentication/Register/Register";
 import Main from "../Layouts/Main/Main";
 import Addproduct from "../Pages/AddProduct/Addproduct";
-import AllProducts from "../Pages/AllProducts/AllProducts/AllProducts";
+// import AllProducts from "../Pages/AllProducts/AllProducts/AllProducts";
 import CategoryData from "../Pages/CategoryData/CategoryData";
 import Home from "../Pages/Home/Home/Home";
 import MyOrders from "../Pages/MyOrders/MyOrders/MyOrders";
@@ -27,10 +27,10 @@ const router = createBrowserRouter([
         path: "/register",
         element: <Register></Register>,
       },
-      {
-        path: "/allproducts",
-        element: <AllProducts></AllProducts>,
-      },
+      // {
+      //   path: "/allproducts",
+      //   element: <AllProducts></AllProducts>,
+      // },
 
       {
         path: "/addproduct",
@@ -63,6 +63,8 @@ const router = createBrowserRouter([
             <CategoryData></CategoryData>
           </PrivetRoute>
         ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/category/${params.id}`),
       },
     ],
   },

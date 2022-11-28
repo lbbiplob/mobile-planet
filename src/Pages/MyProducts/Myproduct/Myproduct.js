@@ -4,7 +4,8 @@ import { toast } from "react-toastify";
 import ConfirmationModal from "../../Shared/ConfrimatinMOdal/ConfirmationModal";
 
 const Myproduct = ({ myproduct, index, refetch }) => {
-  const { _id, displayName, productTitle, sellingPrice, img } = myproduct;
+  const { _id, displayName, productTitle, sellingPrice, img, status } =
+    myproduct;
   const [product, setProduct] = useState(null);
   console.log(product);
   const closeModal = () => {
@@ -21,6 +22,25 @@ const Myproduct = ({ myproduct, index, refetch }) => {
           refetch();
         }
       });
+  };
+  const handelAdvertise = (id) => {
+    console.log(id);
+    const confirm = window.confirm("You want to advertise this phone");
+    const status = "advertised";
+    if (confirm) {
+      fetch(`http://localhost:5000/products/${id}`, {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ status }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          refetch();
+        });
+    }
   };
   return (
     <div className="overflow-x-auto ">
@@ -47,11 +67,22 @@ const Myproduct = ({ myproduct, index, refetch }) => {
             </td>
             <td>Purple</td>
             <th>
-              <button className="btn btn-primary btn-xs mr-3">advertise</button>
+              <label>
+                {status ? (
+                  <button className="btn btn-secondary btn-xs">{status}</button>
+                ) : (
+                  <button
+                    onClick={() => handelAdvertise(_id)}
+                    className="btn btn-primary btn-xs "
+                  >
+                    advertise
+                  </button>
+                )}
+              </label>
               <label
                 onClick={() => setProduct(_id)}
                 htmlFor="confirmation-modal"
-                className="btn btn-warning btn-xs"
+                className="btn btn-warning btn-xs ml-3"
               >
                 Delete
               </label>
@@ -61,6 +92,8 @@ const Myproduct = ({ myproduct, index, refetch }) => {
       </table>
       {product && (
         <ConfirmationModal
+          title={`Are Your Sure Delete this Item`}
+          massage={`If you delete this product . this product will be permanently delete`}
           deleteConfirm={heldelDeletProduct}
           closeModal={closeModal}
           modalData={product}

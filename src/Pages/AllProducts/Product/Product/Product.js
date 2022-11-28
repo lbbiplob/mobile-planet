@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 import "react-photo-view/dist/react-photo-view.css";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import BookingConfirmModal from "../BookingConfirmModal/BookingConfirmModal";
 
 const Product = ({ product }) => {
+  const [bookingConfirm, setBookingConfirm] = useState(null);
+  const nevigate = useNavigate();
   const {
     area,
     band,
@@ -18,6 +23,27 @@ const Product = ({ product }) => {
     sellingPrice,
     storage,
   } = product;
+
+  const handelBooking = (bookingProduct) => {
+    fetch("http://localhost:5000/booking", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(bookingProduct),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.acknowledged) {
+          toast.success("Booking Successfully");
+          nevigate("/myorders");
+        }
+      });
+  };
+  const handelClose = () => {
+    setBookingConfirm(null);
+  };
   return (
     <div>
       <div className="card lg:w-11/12 bg-base-100 shadow-xl">
@@ -61,10 +87,23 @@ const Product = ({ product }) => {
           </div>
           <div className="flex justify-between">
             <button className="btn btn-warning">Report</button>
-            <button className="btn btn-primary">Book Now</button>
+            <label
+              onClick={() => setBookingConfirm(product)}
+              htmlFor="booking-modal"
+              className="btn btn-primary"
+            >
+              Book Now
+            </label>
           </div>
         </div>
       </div>
+      {bookingConfirm && (
+        <BookingConfirmModal
+          close={handelClose}
+          confirmBooking={handelBooking}
+          ModalData={product}
+        ></BookingConfirmModal>
+      )}
     </div>
   );
 };

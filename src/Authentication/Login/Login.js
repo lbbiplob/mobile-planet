@@ -1,22 +1,26 @@
 import { GoogleAuthProvider } from "firebase/auth";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const Login = () => {
   const { emailPasswordLogin, googleLogin } = useContext(AuthContext);
+  const [errorMassage, setErrorMassage] = useState("");
   const handelLogin = (e) => {
     e.preventDefault();
+    setErrorMassage("");
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
     console.log(email, password);
     emailPasswordLogin(email, password)
       .then((result) => {
-        const user = result.user;
-        console.log(user);
+        toast.success("Login successfully");
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        setErrorMassage("User Password not match");
+      });
   };
 
   const handelGoogleLogin = () => {
@@ -57,6 +61,7 @@ const Login = () => {
                 placeholder="password"
                 className="input input-bordered"
               />
+              {errorMassage && <p className="text-warning">{errorMassage}</p>}
               <label className="label">
                 <span>
                   Don't have account{" "}

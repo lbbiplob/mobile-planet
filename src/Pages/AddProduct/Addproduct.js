@@ -2,9 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import moment from "moment";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Addproduct = () => {
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const imageHostKey = process.env.REACT_APP_imabb_key;
 
@@ -76,7 +79,10 @@ const Addproduct = () => {
         })
           .then((res) => res.json())
           .then((data) => {
-            console.log(data);
+            if (data.acknowledged) {
+              toast.success("Phone added");
+              navigate("/myproducts");
+            }
           });
       });
   };

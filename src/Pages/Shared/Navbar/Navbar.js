@@ -1,6 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import { AuthContext } from "../../../AuthProvider/AuthProvider";
 import UseSeller from "../../../Hooks/UseSeller";
 import logo from "../../../images/Logo.png";
@@ -10,15 +10,11 @@ const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
   const [isSeller] = UseSeller(user?.email);
 
-  const { data: categories = [] } = useQuery({
-    queryKey: ["categories"],
-    queryFn: () =>
-      fetch("http://localhost:5000/categories").then((res) => res.json()),
-  });
-
   const handelLogout = () => {
     logOut()
-      .then((result) => {})
+      .then((result) => {
+        toast.success("Logout Successfully");
+      })
       .catch((error) => console.error(error));
   };
   return (
@@ -47,30 +43,6 @@ const Navbar = () => {
           >
             <li>
               <Link to={"/"}>Home</Link>
-            </li>
-            <li>
-              <Link to={"/allproducts"}>All Items</Link>
-            </li>
-            <li tabIndex={0}>
-              <Link className="justify-between ">
-                Category
-                <svg
-                  className="fill-current"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
-                </svg>
-              </Link>
-              <ul className="p-2 bg-neutral">
-                {categories.map((category) => (
-                  <li key={category.categoryId}>
-                    <Link>{category.cetegoryName}</Link>
-                  </li>
-                ))}
-              </ul>
             </li>
             {user && isSeller ? (
               <>
@@ -105,31 +77,7 @@ const Navbar = () => {
           <li>
             <Link to={"/"}>Home</Link>
           </li>
-          <li>
-            <Link to={"/allproducts"}>All Items</Link>
-          </li>
-          <li tabIndex={0}>
-            <Link>
-              Category
-              <svg
-                className="fill-current"
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-              >
-                <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
-              </svg>
-            </Link>
-            <ul className="p-2 px-4 bg-neutral rounded-box">
-              {categories.map((category) => (
-                <li key={category._id}>
-                  <Link>{category.cetegoryName}</Link>
-                </li>
-              ))}
-            </ul>
-          </li>
-          {user && isSeller ? (
+          {user && isSeller && (
             <>
               <li>
                 <Link to={"addproduct"}>Add Product</Link>
@@ -138,10 +86,14 @@ const Navbar = () => {
                 <Link to={"myproducts"}>My Products</Link>
               </li>
             </>
-          ) : (
-            <li>
-              <Link to={"myorders"}>My Orders</Link>
-            </li>
+          )}
+          {user && !isSeller && (
+            <>
+              {" "}
+              <li>
+                <Link to={"myorders"}>My Orders</Link>
+              </li>
+            </>
           )}
           {user?.email ? (
             <>
