@@ -4,8 +4,7 @@ import { toast } from "react-toastify";
 import ConfirmationModal from "../../Shared/ConfrimatinMOdal/ConfirmationModal";
 
 const Myproduct = ({ myproduct, index, refetch }) => {
-  const { _id, displayName, productTitle, sellingPrice, img, status } =
-    myproduct;
+  const { _id, productTitle, sellingPrice, img, status } = myproduct;
   const [product, setProduct] = useState(null);
   console.log(product);
   const closeModal = () => {

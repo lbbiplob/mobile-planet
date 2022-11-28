@@ -3,10 +3,8 @@ import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 
 const BookingConfirmModal = ({ close, confirmBooking, ModalData }) => {
   const { user } = useContext(AuthContext);
-  const { _id, area, img, phoneCondition, productTitle, sellingPrice } =
-    ModalData;
+  const { area, img, phoneCondition, productTitle, sellingPrice } = ModalData;
   const bookedProduct = {
-    _id,
     productTitle,
     sellingPrice,
     img,

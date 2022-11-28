@@ -8,6 +8,7 @@ import CategoryData from "../Pages/CategoryData/CategoryData";
 import Home from "../Pages/Home/Home/Home";
 import MyOrders from "../Pages/MyOrders/MyOrders/MyOrders";
 import MyProducts from "../Pages/MyProducts/MyProducts/MyProducts";
+import Payment from "../Pages/Payment/Payment";
 import PrivetRoute from "./PrivetRoutes";
 
 const router = createBrowserRouter([
@@ -65,6 +66,16 @@ const router = createBrowserRouter([
         ),
         loader: ({ params }) =>
           fetch(`http://localhost:5000/category/${params.id}`),
+      },
+      {
+        path: "/payment/:id",
+        element: (
+          <PrivetRoute>
+            <Payment></Payment>
+          </PrivetRoute>
+        ),
+        // loader: ({ params }) =>
+        //   fetch(`http://localhost:5000/category/${params.id}`),
       },
     ],
   },
