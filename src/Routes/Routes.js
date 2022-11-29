@@ -9,12 +9,14 @@ import Home from "../Pages/Home/Home/Home";
 import MyOrders from "../Pages/MyOrders/MyOrders/MyOrders";
 import MyProducts from "../Pages/MyProducts/MyProducts/MyProducts";
 import Payment from "../Pages/Payment/Payment";
+import DisplayError from "../Pages/Shared/DisplayError/DisplayError";
 import PrivetRoute from "./PrivetRoutes";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Main></Main>,
+    errorElement: <DisplayError></DisplayError>,
     children: [
       {
         path: "/",
@@ -74,8 +76,8 @@ const router = createBrowserRouter([
             <Payment></Payment>
           </PrivetRoute>
         ),
-        // loader: ({ params }) =>
-        //   fetch(`http://localhost:5000/category/${params.id}`),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/booking/${params.id}`),
       },
     ],
   },

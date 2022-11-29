@@ -13,14 +13,21 @@ const AdvertiseProduct = () => {
   );
   console.log(advertiseProducts);
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-11/12 mx-auto my-12 gap-5 ">
-      {advertiseProducts.map((product) => (
+    <div>
+      {advertiseProducts !== 0 && (
         <>
-          {product.status === "advertised" && (
-            <Product key={product._id} product={product}></Product>
-          )}
+          <h2 className="text-3xl font-bold text-center">Advertise Phones</h2>
         </>
-      ))}
+      )}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-11/12 mx-auto my-12 gap-5 ">
+        {advertiseProducts.map((product, index) => (
+          <>
+            {product.status === "advertised" && (
+              <Product key={product._id} product={product}></Product>
+            )}
+          </>
+        ))}
+      </div>
     </div>
   );
 };

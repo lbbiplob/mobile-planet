@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Myorder = ({ bookedphone }) => {
-  const { _id, email, img, productTitle, sellingPrice } = bookedphone;
+  const { _id, email, img, productTitle, sellingPrice, paid } = bookedphone;
   return (
     <div className="overflow-x-auto w-full">
       <table className="table w-10/12 mx-auto">
@@ -27,9 +27,16 @@ const Myorder = ({ bookedphone }) => {
               <p>{sellingPrice}</p>
             </td>
             <th>
-              <Link to={`/payment/${_id}`}>
-                <button className="btn btn-primary btn-xs">pay</button>
-              </Link>
+              {paid && <button className="btn btn-primary btn-xs">paid</button>}
+              {!paid && (
+                <>
+                  <Link to={`/payment/${_id}`}>
+                    <button className="btn btn-primary btn-xs" disabled={paid}>
+                      pay
+                    </button>
+                  </Link>
+                </>
+              )}
             </th>
           </tr>
         </tbody>
