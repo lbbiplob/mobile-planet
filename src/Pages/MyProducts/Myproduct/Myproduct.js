@@ -6,7 +6,6 @@ import ConfirmationModal from "../../Shared/ConfrimatinMOdal/ConfirmationModal";
 const Myproduct = ({ myproduct, index, refetch }) => {
   const { _id, productTitle, sellingPrice, img, status, paid } = myproduct;
   const [product, setProduct] = useState(null);
-  console.log(product);
   const closeModal = () => {
     setProduct(null);
   };
@@ -23,7 +22,6 @@ const Myproduct = ({ myproduct, index, refetch }) => {
       });
   };
   const handelAdvertise = (id) => {
-    console.log(id);
     const confirm = window.confirm("You want to advertise this phone");
     const status = "advertised";
     if (confirm) {

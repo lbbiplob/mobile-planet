@@ -41,6 +41,27 @@ const Product = ({ product }) => {
         }
       });
   };
+
+  const handelReport = (reportProduct) => {
+    console.log(reportProduct);
+    const confirm = window.confirm("Are you sure report this product");
+    if (confirm) {
+      fetch("http://localhost:5000/reported", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(reportProduct),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.acknowledged) {
+            toast.success("Reported To Admin");
+          }
+        });
+    }
+  };
   const handelClose = () => {
     setBookingConfirm(null);
   };
@@ -86,7 +107,12 @@ const Product = ({ product }) => {
             <p>Post-date: {postTime}</p>
           </div>
           <div className="flex justify-between">
-            <button className="btn btn-warning">Report</button>
+            <button
+              onClick={() => handelReport(product)}
+              className="btn btn-warning"
+            >
+              Report
+            </button>
             <label
               onClick={() => setBookingConfirm(product)}
               htmlFor="booking-modal"

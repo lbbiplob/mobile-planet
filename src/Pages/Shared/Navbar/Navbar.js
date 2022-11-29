@@ -46,6 +46,14 @@ const Navbar = () => {
             <li>
               <Link to={"/"}>Home</Link>
             </li>
+            <li>
+              <Link to={"/blogs"}>Blogs</Link>
+            </li>
+            {user && isAdmin && (
+              <li>
+                <Link to={"/dashboard"}>Dashboard</Link>
+              </li>
+            )}
             {user && isSeller ? (
               <>
                 <li>
@@ -79,6 +87,14 @@ const Navbar = () => {
           <li>
             <Link to={"/"}>Home</Link>
           </li>
+          <li>
+            <Link to={"/blogs"}>Blogs</Link>
+          </li>
+          {user && isAdmin && (
+            <li>
+              <Link to={"/dashboard"}>Dashboard</Link>
+            </li>
+          )}
           {user && isSeller && (
             <>
               <li>

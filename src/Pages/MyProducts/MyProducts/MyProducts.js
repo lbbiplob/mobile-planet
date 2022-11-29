@@ -14,6 +14,7 @@ const MyProducts = () => {
       ),
   });
   console.log(MyProducts);
+  console.log(MyProducts);
   return (
     <div>
       <h2 className="text-xl font-bold text-center my-5 mx-auto">

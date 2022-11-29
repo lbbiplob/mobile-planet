@@ -55,6 +55,7 @@ const Addproduct = () => {
         const product = {
           displayName: user.displayName,
           email: user.email,
+          verify: user.verify,
           postTime,
           useTime,
           productTitle,

@@ -2,6 +2,7 @@ import React from "react";
 import AdvertiseProduct from "../AdvertiseProduct/AdvertiseProduct";
 import Banner from "../Banner/Banner";
 import Categories from "../Categories/Categories/Categories";
+import Choose from "../Choose/Choose";
 
 const Home = () => {
   return (
@@ -9,6 +10,7 @@ const Home = () => {
       <Banner></Banner>
       <Categories></Categories>
       <AdvertiseProduct></AdvertiseProduct>
+      <Choose></Choose>
     </div>
   );
 };

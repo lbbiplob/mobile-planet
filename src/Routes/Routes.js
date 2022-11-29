@@ -1,10 +1,17 @@
 import { createBrowserRouter } from "react-router-dom";
 import Login from "../Authentication/Login/Login";
 import Register from "../Authentication/Register/Register";
+import DashbordLayout from "../Layouts/DashbordLayout/DashbordLayout";
 import Main from "../Layouts/Main/Main";
 import Addproduct from "../Pages/AddProduct/Addproduct";
+import Blogs from "../Pages/Blogs/Blogs";
 // import AllProducts from "../Pages/AllProducts/AllProducts/AllProducts";
 import CategoryData from "../Pages/CategoryData/CategoryData";
+import AllBuyers from "../Pages/Dashboard/AllBuyers/AllBuyers";
+import AllSellers from "../Pages/Dashboard/AllSellers/AllSellers";
+import Dashboard from "../Pages/Dashboard/Dashboard/Dashboard";
+import ReportedProducts from "../Pages/Dashboard/ReportedProduct/ReportedProducts";
+
 import Home from "../Pages/Home/Home/Home";
 import MyOrders from "../Pages/MyOrders/MyOrders/MyOrders";
 import MyProducts from "../Pages/MyProducts/MyProducts/MyProducts";
@@ -25,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login></Login>,
+      },
+      {
+        path: "/blogs",
+        element: <Blogs></Blogs>,
       },
       {
         path: "/register",
@@ -78,6 +89,33 @@ const router = createBrowserRouter([
         ),
         loader: ({ params }) =>
           fetch(`http://localhost:5000/booking/${params.id}`),
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivetRoute>
+        <DashbordLayout></DashbordLayout>
+      </PrivetRoute>
+    ),
+    children: [
+      {
+        path: "/dashboard",
+        element: <Dashboard></Dashboard>,
+      },
+      {
+        path: "/dashboard/allbuyers",
+
+        element: <AllBuyers></AllBuyers>,
+      },
+      {
+        path: "/dashboard/allsellers",
+        element: <AllSellers></AllSellers>,
+      },
+      {
+        path: "/dashboard/reported",
+        element: <ReportedProducts></ReportedProducts>,
       },
     ],
   },
