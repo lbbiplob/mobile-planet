@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const Register = () => {
   const { createUser, updateUserDetails } = useContext(AuthContext);
+  const navigate = useNavigate();
   // user registion function
   const handelRegister = (e) => {
     e.preventDefault();
@@ -23,6 +25,7 @@ const Register = () => {
           .then((result) => {
             saveUser(name, email, userType);
             form.reset();
+            navigate("/");
           })
           .catch((error) => console.error(error));
       })
@@ -45,6 +48,7 @@ const Register = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        toast.success("Register SuccessFully");
         // getToken(email);
         console.log(data);
       });

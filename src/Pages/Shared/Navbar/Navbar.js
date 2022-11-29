@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../../AuthProvider/AuthProvider";
+import useAdmin from "../../../Hooks/useAdmin";
 import UseSeller from "../../../Hooks/UseSeller";
 import logo from "../../../images/Logo.png";
 import Loading from "../../Loading/Loading";
@@ -9,7 +10,8 @@ import Loading from "../../Loading/Loading";
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
   const [isSeller] = UseSeller(user?.email);
-
+  const [isAdmin] = useAdmin(user?.email);
+  console.log(isAdmin);
   const handelLogout = () => {
     logOut()
       .then((result) => {
@@ -87,7 +89,7 @@ const Navbar = () => {
               </li>
             </>
           )}
-          {user && !isSeller && (
+          {user && !isSeller && !isAdmin && (
             <>
               {" "}
               <li>

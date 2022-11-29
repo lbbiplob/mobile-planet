@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import ConfirmationModal from "../../Shared/ConfrimatinMOdal/ConfirmationModal";
 
 const Myproduct = ({ myproduct, index, refetch }) => {
-  const { _id, productTitle, sellingPrice, img, status } = myproduct;
+  const { _id, productTitle, sellingPrice, img, status, paid } = myproduct;
   const [product, setProduct] = useState(null);
   console.log(product);
   const closeModal = () => {
@@ -64,12 +64,20 @@ const Myproduct = ({ myproduct, index, refetch }) => {
             <td>
               <p className="text-left">{sellingPrice}</p>
             </td>
-            <td>Purple</td>
+            <td>
+              {paid && (
+                <button className="btn btn-secondary btn-xs">Paid</button>
+              )}
+              {!paid && (
+                <button className="btn btn-secondary btn-xs">Available</button>
+              )}
+            </td>
             <th>
               <label>
-                {status ? (
+                {status && (
                   <button className="btn btn-secondary btn-xs">{status}</button>
-                ) : (
+                )}
+                {!status && !paid && (
                   <button
                     onClick={() => handelAdvertise(_id)}
                     className="btn btn-primary btn-xs "
