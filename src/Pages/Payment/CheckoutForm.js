@@ -11,7 +11,7 @@ const CheckoutForm = ({ data }) => {
   const navigate = useNavigate();
   const { sellingPrice, name, email, bookingId } = data;
   useEffect(() => {
-    fetch("http://localhost:5000/create-payment-intent", {
+    fetch("https://mobile-planet-bd-server.vercel.app/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ price: sellingPrice }),
@@ -63,7 +63,7 @@ const CheckoutForm = ({ data }) => {
         email,
         name,
       };
-      fetch("http://localhost:5000/payment", {
+      fetch("https://mobile-planet-bd-server.vercel.app/payment", {
         method: "POST",
         headers: {
           "content-type": "application/json",

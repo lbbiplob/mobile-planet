@@ -11,7 +11,9 @@ const ReportedProducts = () => {
   } = useQuery({
     queryKey: ["reported"],
     queryFn: () =>
-      fetch("http://localhost:5000/reported").then((res) => res.json()),
+      fetch("https://mobile-planet-bd-server.vercel.app/reported").then((res) =>
+        res.json()
+      ),
   });
   if (isLoading) {
     return <Loading></Loading>;

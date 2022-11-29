@@ -12,7 +12,9 @@ const MyOrders = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/booking?email=${user?.email}`)
+      .get(
+        `https://mobile-planet-bd-server.vercel.app/booking?email=${user?.email}`
+      )
       .then((data) => {
         setBookedPhones(data.data);
       });

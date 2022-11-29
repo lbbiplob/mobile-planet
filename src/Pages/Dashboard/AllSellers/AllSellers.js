@@ -11,7 +11,9 @@ const AllSellers = () => {
   } = useQuery({
     queryKey: ["sellers"],
     queryFn: () =>
-      fetch("http://localhost:5000/users/sellers").then((res) => res.json()),
+      fetch("https://mobile-planet-bd-server.vercel.app/users/sellers").then(
+        (res) => res.json()
+      ),
   });
   if (isLoading) {
     return <Loading></Loading>;

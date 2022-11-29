@@ -10,7 +10,7 @@ const Myproduct = ({ myproduct, index, refetch }) => {
     setProduct(null);
   };
   const heldelDeletProduct = (data) => {
-    fetch(`http://localhost:5000/products/${data}`, {
+    fetch(`https://mobile-planet-bd-server.vercel.app/products/${data}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -25,7 +25,7 @@ const Myproduct = ({ myproduct, index, refetch }) => {
     const confirm = window.confirm("You want to advertise this phone");
     const status = "advertised";
     if (confirm) {
-      fetch(`http://localhost:5000/products/${id}`, {
+      fetch(`https://mobile-planet-bd-server.vercel.app/products/${id}`, {
         method: "PUT",
         headers: {
           "content-type": "application/json",
@@ -64,7 +64,7 @@ const Myproduct = ({ myproduct, index, refetch }) => {
             </td>
             <td>
               {paid && (
-                <button className="btn btn-secondary btn-xs">Paid</button>
+                <button className="btn btn-secondary btn-xs">Sold Out </button>
               )}
               {!paid && (
                 <button className="btn btn-secondary btn-xs">Available</button>

@@ -16,7 +16,9 @@ const Addproduct = () => {
   const { data: categories = [] } = useQuery({
     queryKey: ["categories"],
     queryFn: () =>
-      fetch("http://localhost:5000/categories").then((res) => res.json()),
+      fetch("https://mobile-planet-bd-server.vercel.app/categories").then(
+        (res) => res.json()
+      ),
   });
 
   const handelAddProduct = (e) => {
@@ -71,7 +73,7 @@ const Addproduct = () => {
           storage,
           model,
         };
-        fetch("http://localhost:5000/products", {
+        fetch("https://mobile-planet-bd-server.vercel.app/products", {
           method: "POST",
           headers: {
             "content-type": "application/json",

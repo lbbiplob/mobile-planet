@@ -39,7 +39,7 @@ const Register = () => {
       email,
       userType,
     };
-    fetch("http://localhost:5000/users", {
+    fetch("https://mobile-planet-bd-server.vercel.app/users", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -57,7 +57,7 @@ const Register = () => {
   // get token from backend
 
   const getToken = (email) => {
-    fetch(`http://localhost:5000/jwt?email=${email}`)
+    fetch(`https://mobile-planet-bd-server.vercel.app/jwt?email=${email}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.accessToken) {

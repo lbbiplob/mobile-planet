@@ -6,7 +6,9 @@ const AdvertiseProduct = () => {
   const { data: products = [] } = useQuery({
     queryKey: ["products"],
     queryFn: () =>
-      fetch("http://localhost:5000/products").then((res) => res.json()),
+      fetch("https://mobile-planet-bd-server.vercel.app/products").then((res) =>
+        res.json()
+      ),
   });
   const advertiseProducts = products.filter(
     (product) => product.status === "advertised"

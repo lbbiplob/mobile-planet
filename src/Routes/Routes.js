@@ -78,7 +78,9 @@ const router = createBrowserRouter([
           </PrivetRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/category/${params.id}`),
+          fetch(
+            `https://mobile-planet-bd-server.vercel.app/category/${params.id}`
+          ),
       },
       {
         path: "/payment/:id",
@@ -88,7 +90,9 @@ const router = createBrowserRouter([
           </PrivetRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/booking/${params.id}`),
+          fetch(
+            `https://mobile-planet-bd-server.vercel.app/booking/${params.id}`
+          ),
       },
     ],
   },

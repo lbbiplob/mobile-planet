@@ -7,7 +7,7 @@ const ReportedData = ({ product, index, refetch }) => {
     console.log(id);
     const confirm = window.confirm("Are you sure to delete ");
     if (confirm) {
-      fetch(`http://localhost:5000/reported/${id}`, {
+      fetch(`https://mobile-planet-bd-server.vercel.app/reported/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())

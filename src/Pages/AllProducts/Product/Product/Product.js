@@ -25,7 +25,7 @@ const Product = ({ product }) => {
   } = product;
 
   const handelBooking = (bookingProduct) => {
-    fetch("http://localhost:5000/booking", {
+    fetch("https://mobile-planet-bd-server.vercel.app/booking", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -46,7 +46,7 @@ const Product = ({ product }) => {
     console.log(reportProduct);
     const confirm = window.confirm("Are you sure report this product");
     if (confirm) {
-      fetch("http://localhost:5000/reported", {
+      fetch("https://mobile-planet-bd-server.vercel.app/reported", {
         method: "POST",
         headers: {
           "content-type": "application/json",

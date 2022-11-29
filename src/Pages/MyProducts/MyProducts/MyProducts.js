@@ -9,9 +9,9 @@ const MyProducts = () => {
   const { data: MyProducts = [], refetch } = useQuery({
     queryKey: ["products", user?.email],
     queryFn: () =>
-      fetch(`http://localhost:5000/products?email=${user.email}`).then((res) =>
-        res.json()
-      ),
+      fetch(
+        `https://mobile-planet-bd-server.vercel.app/products?email=${user.email}`
+      ).then((res) => res.json()),
   });
   console.log(MyProducts);
   console.log(MyProducts);

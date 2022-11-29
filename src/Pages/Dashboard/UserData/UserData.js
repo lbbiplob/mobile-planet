@@ -7,7 +7,7 @@ const UserData = ({ user, index, refetch }) => {
   const handelDeleteUser = (id) => {
     const confirm = window.confirm(`Are you sure to delete ${name}`);
     if (confirm) {
-      fetch(`http://localhost:5000/users/${id}`, {
+      fetch(`https://mobile-planet-bd-server.vercel.app/users/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())
@@ -22,7 +22,7 @@ const UserData = ({ user, index, refetch }) => {
   const handelVerifyUser = (id) => {
     const confirm = window.confirm("You want to advertise this phone");
     if (confirm) {
-      fetch(`http://localhost:5000/users/${id}`, {
+      fetch(`https://mobile-planet-bd-server.vercel.app/users/${id}`, {
         method: "PUT",
         headers: {
           "content-type": "application/json",
