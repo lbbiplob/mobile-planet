@@ -4,8 +4,10 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 import moment from "moment";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import useTitle from "../../Hooks/useTitle";
 
 const Addproduct = () => {
+  useTitle("Add Product");
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 

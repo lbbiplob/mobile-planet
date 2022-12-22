@@ -1,10 +1,12 @@
 import React from "react";
+import useTitle from "../../../Hooks/useTitle";
 import AdvertiseProduct from "../AdvertiseProduct/AdvertiseProduct";
 import Banner from "../Banner/Banner";
 import Categories from "../Categories/Categories/Categories";
 import Choose from "../Choose/Choose";
 
 const Home = () => {
+  useTitle("Home");
   return (
     <div className="lg:w-10/12 w-11/12 mx-auto ">
       <Banner></Banner>
